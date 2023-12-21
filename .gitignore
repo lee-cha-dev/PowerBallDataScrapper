@@ -2,6 +2,7 @@ Driver
 Include
 Lib
 Scripts
+.idea
 pyvenv.cfg
 geckodriver.log
 powerBallDataset
