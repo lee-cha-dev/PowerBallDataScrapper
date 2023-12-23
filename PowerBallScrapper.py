@@ -3,6 +3,12 @@ import pickle
 from selenium import webdriver
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
+import os
+import shutil
+
+
+def cls():
+    os.system('cls')
 
 
 class PowerBallScrapper(object):
@@ -14,6 +20,7 @@ class PowerBallScrapper(object):
     myURL = f'https://www.usamega.com/powerball/results/'
     options = webdriver.FirefoxOptions()
     driver = None
+    columns = shutil.get_terminal_size().columns
 
     def __init__(self):
         self.options.add_argument('-headless')
@@ -26,7 +33,13 @@ class PowerBallScrapper(object):
         self.counter = 1
         self.lastPage = False
 
+        print("Starting Up Miner...\n")
         while self.lastPage is False:
+            cls()
+            print("------------------------------------------------------------------------------------------------------".center(self.columns))
+            print("******Miners At Work******".center(self.columns))
+            print("------------------------------------------------------------------------------------------------------".center(self.columns))
+            print("Mining Data from Page {}".format(self.webpageNum).center(self.columns))
             self.myURL = f'https://www.usamega.com/powerball/results/{self.webpageNum}'
             self.driver = webdriver.Firefox(options=self.options)
 
@@ -43,25 +56,23 @@ class PowerBallScrapper(object):
                     currentDraw.append(int(drawNum))
                     self.numRange += 1
                 self.numRange = 1
-                print(f"Current Draw: {currentDraw}")
                 self.dataList.append(currentDraw)
                 self.counter += 1
 
             self.counter = 1
-            print(f'Dataset size: {len(self.dataList)}')
 
             # CHECK FOR LAST PAGE
             try:
                 nextButton = self.driver.find_element(By.XPATH, '/html/body/div[1]/main/div[4]/p/span/a[2]')
             except NoSuchElementException:
                 if self.webpageNum > 1:
-                    print('Last Page Found')
+                    print('Last Page Found'.center(self.columns))
                     self.lastPage = True
 
             self.driver.close()
             self.webpageNum += 1
 
-        print(f'End of Session dataList: {self.dataList}')
+        print(f'\nShutting Down Miner..\nEnd of Session dataList: {self.dataList}\n'.center(self.columns))
 
         # SAVE
         pickleOut = open("powerBallDataset", "wb")

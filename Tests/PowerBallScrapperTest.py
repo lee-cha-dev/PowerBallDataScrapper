@@ -2,6 +2,12 @@ from selenium import webdriver
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from PowerBallScrapper import PowerBallScrapper
+import os
+import shutil
+
+
+def cls():
+    os.system('cls')
 
 
 class PowerBallScrapperTest:
@@ -12,6 +18,7 @@ class PowerBallScrapperTest:
     failToFindRow = False
     failToFindListOfDrawings = False
     failToFindDrawingNum = False
+    columns = shutil.get_terminal_size().columns
 
     def __init__(self):
         pass
@@ -77,8 +84,9 @@ class PowerBallScrapperTest:
                 self.failMessages.append("Tests::Passed::successfully found the first drawing")
 
     def startTests(self):
-        print("\n------------------------------------------------------------------------------------------------------")
-        print("Tests::starting tests\n")
+        cls()
+        print("------------------------------------------------------------------------------------------------------".center(self.columns))
+        print("Tests::starting tests\n".center(self.columns))
 
         # INIT INSTANCE
         self.scrapper.driver = webdriver.Firefox(options=self.scrapper.options)
@@ -98,7 +106,8 @@ class PowerBallScrapperTest:
         self.scrapper.driver.quit()
 
         for message in self.failMessages:
-            print(message)
+            print(f"{message}".center(self.columns))
 
-        print("\nTests::tests complete")
-        print("------------------------------------------------------------------------------------------------------\n")
+        print()
+        print("Tests::tests complete".center(self.columns))
+        print("------------------------------------------------------------------------------------------------------".center(self.columns))
