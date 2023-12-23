@@ -20,7 +20,7 @@ class PowerBallScrapper(object):
 
     def getPowerBallDataHeadless(self):
         # RESET VARIABLES
-        self.webpageNum = 1
+        self.webpageNum = 130
         self.numRange = 1
         self.dataList = []
         self.counter = 1
@@ -29,11 +29,8 @@ class PowerBallScrapper(object):
         while self.lastPage is False:
             self.myURL = f'https://www.usamega.com/powerball/results/{self.webpageNum}'
             self.driver = webdriver.Firefox(options=self.options)
-            # self.driver.maximize_window()
-            # time.sleep(1)
 
             self.driver.get(self.myURL)
-            # time.sleep(5)
 
             drawingsOnPage = len(self.driver.find_elements(By.XPATH, f'/html/body/div[1]/main/div[4]/table/tbody/tr'))
             # WORKS THROUGH ALL DRAWINGS ON THAT PAGE
@@ -41,21 +38,14 @@ class PowerBallScrapper(object):
                 currentDraw = []
                 while self.numRange < 7:
                     numData = self.driver.find_element(By.XPATH,
-                                                  f'/html/body/div[1]/main/div[4]/table/tbody/tr[{self.counter}]/td[1]/section/ul/li[{self.numRange}]')
+                                                       f'/html/body/div[1]/main/div[4]/table/tbody/tr[{self.counter}]/td[1]/section/ul/li[{self.numRange}]')
                     drawNum = numData.get_property("innerHTML")
                     currentDraw.append(int(drawNum))
                     self.numRange += 1
                 self.numRange = 1
                 print(f"Current Draw: {currentDraw}")
                 self.dataList.append(currentDraw)
-                if self.webpageNum == 124:
-                    # PAGE 124 DEVIATES FROM THE OTHER PAGES
-                    if self.counter == 21:
-                        self.counter = 27
-                    else:
-                        self.counter += 1
-                else:
-                    self.counter += 1
+                self.counter += 1
 
             self.counter = 1
             print(f'Dataset size: {len(self.dataList)}')
@@ -70,8 +60,6 @@ class PowerBallScrapper(object):
 
             self.driver.close()
             self.webpageNum += 1
-
-
 
         print(f'End of Session dataList: {self.dataList}')
 
