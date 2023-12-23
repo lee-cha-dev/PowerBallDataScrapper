@@ -8,6 +8,6 @@ __pycache__
 pyvenv.cfg
 geckodriver.log
 powerBallDataset
-powerBallDataset_2022_hardSave
+powerBallDataset_2023_hardSave
 powerBallDataset_hardSave
 readPowerBallData.py

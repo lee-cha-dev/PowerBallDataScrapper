@@ -73,7 +73,7 @@ class PowerBallScrapper(object):
             self.driver.close()
             self.webpageNum += 1
 
-        print(f'\nShutting Down Miner..\nEnd of Session dataList: {self.dataList}\n'.center(self.columns))
+        print(f'\nShutting Down Miner..\nEnd of Session\n'.center(self.columns))
 
         # SAVE
         pickleOut = open("powerBallDataset", "wb")
