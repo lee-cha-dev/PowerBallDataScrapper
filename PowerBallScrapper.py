@@ -6,43 +6,41 @@ from selenium.webdriver.common.by import By
 
 
 class PowerBallScrapper(object):
-    myURL = 'https://www.usamega.com/powerball/results/1'
-
     webpageNum = 1
-    stillWorking = True
     numRange = 1
     dataList = []
     counter = 1
     lastPage = False
+    myURL = f'https://www.usamega.com/powerball/results/'
+    options = webdriver.FirefoxOptions()
+    driver = None
 
     def __init__(self):
-        pass
+        self.options.add_argument('-headless')
 
     def getPowerBallDataNotHeadless(self):
         # RESET VARIABLES
-        self.webpageNum = 131
-        self.stillWorking = True
+        self.webpageNum = 1
         self.numRange = 1
         self.dataList = []
         self.counter = 1
-
-        drawingOnPage = 0
+        self.lastPage = False
 
         while self.lastPage is False:
-            myURL = f'https://www.usamega.com/powerball/results/{self.webpageNum}'
-            driver = webdriver.Firefox()
-            driver.maximize_window()
-            time.sleep(1)
+            self.myURL = f'https://www.usamega.com/powerball/results/{self.webpageNum}'
+            self.driver = webdriver.Firefox(options=self.options)
+            # self.driver.maximize_window()
+            # time.sleep(1)
 
-            driver.get(myURL)
-            time.sleep(5)
+            self.driver.get(self.myURL)
+            # time.sleep(5)
 
-            drawingsOnPage = len(driver.find_elements(By.XPATH, f'/html/body/div[1]/main/div[4]/table/tbody/tr'))
+            drawingsOnPage = len(self.driver.find_elements(By.XPATH, f'/html/body/div[1]/main/div[4]/table/tbody/tr'))
             # WORKS THROUGH ALL DRAWINGS ON THAT PAGE
             while self.counter - 1 < drawingsOnPage:
                 currentDraw = []
                 while self.numRange < 7:
-                    numData = driver.find_element(By.XPATH,
+                    numData = self.driver.find_element(By.XPATH,
                                                   f'/html/body/div[1]/main/div[4]/table/tbody/tr[{self.counter}]/td[1]/section/ul/li[{self.numRange}]')
                     drawNum = numData.get_property("innerHTML")
                     currentDraw.append(int(drawNum))
@@ -64,12 +62,13 @@ class PowerBallScrapper(object):
 
             # CHECK FOR LAST PAGE
             try:
-                nextButton = driver.find_element(By.XPATH, '/html/body/div[1]/main/div[4]/p/span/a[2]')
+                nextButton = self.driver.find_element(By.XPATH, '/html/body/div[1]/main/div[4]/p/span/a[2]')
             except NoSuchElementException:
-                print('Last Page Found')
-                self.lastPage = True
-            
-            driver.close()
+                if self.webpageNum > 1:
+                    print('Last Page Found')
+                    self.lastPage = True
+
+            self.driver.close()
             self.webpageNum += 1
 
 
@@ -80,8 +79,3 @@ class PowerBallScrapper(object):
         pickleOut = open("powerBallDataset", "wb")
         pickle.dump(self.dataList, pickleOut)
         pickleOut.close()
-
-
-t = PowerBallScrapper()
-t.getPowerBallDataNotHeadless()
-
