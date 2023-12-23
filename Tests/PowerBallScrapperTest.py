@@ -45,7 +45,7 @@ class PowerBallScrapperTest:
             if self.failToFindBody:
                 self.failMessages.append("Tests::Failed::Could NOT find the the table body of drawings.")
             else:
-                self.failMessages.append("Tests::Passed::successfully found the table body of drawings.")
+                self.failMessages.append("Tests::Passed::Successfully found the table body of drawings.")
 
     def findFirstTableRow(self):
         # FIND THE FIRST TABLE ROW WITH THE FIRST DRAWING
@@ -69,7 +69,7 @@ class PowerBallScrapperTest:
             if self.failToFindListOfDrawings:
                 self.failMessages.append("Tests::Failed::Could NOT find the unordered list of the drawings.")
             else:
-                self.failMessages.append("Tests::Passed::successfully found the unordered list of the drawings.")
+                self.failMessages.append("Tests::Passed::Successfully found the unordered list of the drawings.")
 
     def findFirstDrawingWithinUList(self):
         # FIND THE FIRST DRAWING WITHIN THE UNORDERED LIST
@@ -81,11 +81,11 @@ class PowerBallScrapperTest:
             if self.failToFindDrawingNum:
                 self.failMessages.append("Tests::Failed::Could NOT find the first drawing")
             else:
-                self.failMessages.append("Tests::Passed::successfully found the first drawing")
+                self.failMessages.append("Tests::Passed::Successfully found the first drawing")
 
     def startTests(self):
         cls()
-        print("------------------------------------------------------------------------------------------------------".center(self.columns))
+        print("".center(self.columns, '-'))
         print("Tests::starting tests\n".center(self.columns))
 
         # INIT INSTANCE
@@ -110,4 +110,4 @@ class PowerBallScrapperTest:
 
         print()
         print("Tests::tests complete".center(self.columns))
-        print("------------------------------------------------------------------------------------------------------".center(self.columns))
+        print("".center(self.columns, '-'))

@@ -35,10 +35,11 @@ class PowerBallScrapper(object):
 
         print("Starting Up Miner...\n")
         while self.lastPage is False:
+            self.columns = shutil.get_terminal_size().columns  # UPDATES THE COLUMN SIZE IN CASE USER RESIZES
             cls()
-            print("------------------------------------------------------------------------------------------------------".center(self.columns))
-            print("******Miners At Work******".center(self.columns))
-            print("------------------------------------------------------------------------------------------------------".center(self.columns))
+            print("".center(self.columns, '-'))
+            print(" Miners At Work ".center(self.columns, '*'))
+            print("".center(self.columns, '-'))
             print("Mining Data from Page {}".format(self.webpageNum).center(self.columns))
             self.myURL = f'https://www.usamega.com/powerball/results/{self.webpageNum}'
             self.driver = webdriver.Firefox(options=self.options)
