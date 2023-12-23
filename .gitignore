@@ -3,6 +3,7 @@ Include
 Lib
 Scripts
 .idea
+Tests/__pycache__
 __pycache__
 pyvenv.cfg
 geckodriver.log
