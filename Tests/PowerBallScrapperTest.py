@@ -7,7 +7,6 @@ from PowerBallScrapper import PowerBallScrapper
 class PowerBallScrapperTest:
     scrapper = PowerBallScrapper()
     failMessages = []
-
     failToFindTable = False
     failToFindBody = False
     failToFindRow = False
