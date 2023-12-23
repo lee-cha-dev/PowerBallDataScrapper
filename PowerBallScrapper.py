@@ -20,7 +20,7 @@ class PowerBallScrapper(object):
 
     def getPowerBallDataHeadless(self):
         # RESET VARIABLES
-        self.webpageNum = 130
+        self.webpageNum = 1
         self.numRange = 1
         self.dataList = []
         self.counter = 1
