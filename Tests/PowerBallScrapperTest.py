@@ -107,7 +107,6 @@ class PowerBallScrapperTest:
 
         for message in self.failMessages:
             print(f"{message}".center(self.columns))
-
         print()
         print("Tests::tests complete".center(self.columns))
         print("".center(self.columns, '-'))
