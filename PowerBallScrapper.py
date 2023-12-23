@@ -18,7 +18,7 @@ class PowerBallScrapper(object):
     def __init__(self):
         self.options.add_argument('-headless')
 
-    def getPowerBallDataNotHeadless(self):
+    def getPowerBallDataHeadless(self):
         # RESET VARIABLES
         self.webpageNum = 1
         self.numRange = 1
